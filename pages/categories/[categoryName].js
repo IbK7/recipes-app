@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Header from '../../components/Header';
-import { CardContent, CircularProgress, Grid, Card, Typography } from '@mui/material';
+import { CardContent, Grid, Card, Typography } from '@mui/material';
 import Image from 'next/image';
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/Categories.module.css'
 import ErrorPage from 'next/error'
 
 const CategoryName = ({ meals }) => {
@@ -14,86 +14,68 @@ const CategoryName = ({ meals }) => {
   if (!meals) return <ErrorPage statusCode='404' />
 
   return (
-    <div>
+    <>
         <Head>
             <title> {categoryName} | Recipes App</title>
           <meta name="description" content="Homepage of the Recipes application" />
         </Head>
+        <Header />
         <main className={styles.main}>
-            <Header />
-            <Typography variant='h3'>Meals </Typography>
+          <Typography variant='h3'>Meals </Typography>
+
             <Grid container direction="row" alignItems="center" justifyContent="center" spacing={1} sx = {{flex: "wrap"}}>
               {
                 meals.map((meal) => 
                   <Grid item key={meal.idMeal} >
-                    <MealCard
-                      image = {meal.strMealThumb}
-                      title = {meal.strMeal}
-                    />
+                    <Card variant='outlined' className={styles.card}>
+                      <Grid container direction='column' justifyContent='center' alignItems='center' >
+                        <Grid item 
+                          className={styles.imgContainer}
+                        >
+                          <Image 
+                            src = {meal.strMealThumb} 
+                            alt={meal.strMeal} 
+                            layout="fill"
+                            objectFit="cover"
+                            quality={100}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Typography variant='body1'>
+                            {meal.strMeal}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Card>
                   </Grid>
                 )
               }
             </Grid>
 
         </main>
-
-    </div>
+    </>
   )
 }
 
-const MealCard = (props) => {
-    return(
-      <Card variant='outlined' 
-      className={styles.card}
-      >
-        <CardContent>
-          <Image layout='responsive' src={props.image} alt={props.title} height='4' width='10' />
-          <h3 align="center">{props.title}</h3>
-        </CardContent>
-      </Card>
-    )
-}
-
-// export const getStaticProps = async () => {
-//     const router = useRouter();
-//     const {categoryName} = router.query; 
-
-//     const data = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)).json();
-//     const meals = data.meals;
-
-//     return {
-//         props: {
-//             meals,
-//         }
-//     }
-// }
-
 export async function getStaticPaths() {
-  // Return a list of possible value for categoryName
-
   const data = await (await fetch('https://www.themealdb.com/api/json/v1/1/categories.php')).json();
   const mealCategories = data.categories;
 
   var categoryPaths = [];
-  // console.log(mealCategories[0].strCategory);
   for (let i = 0; i < mealCategories.length; i++ ) {
     categoryPaths.push({params: {categoryName: mealCategories[i].strCategory}})
   }
 
-  // console.log(categoryPaths)
-
   return {
-    // paths: [{params: {categoryName: '404'}}, {params: {categoryName: 'None'}}],
     paths: categoryPaths,
-    fallback: true,
+    fallback: false,
   }
 }
 
 export async function getStaticProps({params}) {
-  // Fetch necessary data for the blog post using params.categoryName
   const data = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${params.categoryName}`)).json();
   const meals = data.meals;
-
+  
   return {
     props: {
       meals,

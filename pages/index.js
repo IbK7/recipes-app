@@ -9,36 +9,16 @@ import { useRouter } from 'next/router';
 
 export default function Home() {
   return (
-    <div> 
+    <> 
       <Head>
           <title>Home | Recipes App</title>
           <meta name="description" content="Homepage of the Recipes application" />
           {/* <link rel="icon" href="/favicon.ico" /> */}
         </Head>
+        <Header />
         <main className={styles.main}>
-          <Header />
-          This is the home page
+              This is the main pages
         </main>
-    </div>
-  )
-}
-
-const CategoryCard = (props) => {
-  const router = useRouter();
-
-  return(
-    <Card 
-      variant='outlined' 
-      className = {styles.card}
-      onClick = {(e) => {
-        e.preventDefault();
-        router.push(`/categories/${props.title}`)
-      }} 
-    >
-      <CardContent>
-        <Image layout='responsive' src={props.image} alt={props.title} height='4' width='10' />
-        <h3 align="center">{props.title}</h3>
-      </CardContent>
-    </Card>
+    </>
   )
 }

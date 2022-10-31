@@ -1,3 +1,25 @@
+.container {
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    height: 8vh;
+    background-color: #b24724;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.linkContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .link {
-    margin: auto;
+    margin: 1rem;
+    border-bottom: 1px solid black;
+    color: black;
 }

@@ -1,0 +1,38 @@
+.container {
+    padding: 0 2rem;
+}
+
+.main {
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    margin: 1rem;
+}
+
+.card {
+    min-width: 20vw;
+    border: 2px solid lightgrey;
+    text-align: center;
+}
+
+.card p {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
+
+.imgContainer {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    z-index: 1;
+}
+

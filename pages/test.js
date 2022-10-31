@@ -1,14 +1,11 @@
 import React from 'react';
 import Head from 'next/head'
-import styles from '../../styles/Categories.module.css'
+import styles from '../styles/Test.module.css'
 import { Grid, Typography, Card, CardContent } from '@mui/material'
 import Image from 'next/image';
-import Header from '../../components/Header'
-import { useRouter } from 'next/router';
 
-export default function Categories( {mealCategories} ) {
-  const router = useRouter();
-  
+export default function Home( {mealCategories} ) {
+
   // React.useEffect(() => {
   //   console.log(mealCategories);
   // })
@@ -19,7 +16,7 @@ export default function Categories( {mealCategories} ) {
         <title>Meal Categories</title>
         <meta name="description" content="Meal categories you can choose from" />
       </Head>
-      <Header />
+
       <main className={styles.main}>
         <Typography variant='h3' className = {styles.heading} >Meal Categories</Typography>
         <Grid 
@@ -27,18 +24,13 @@ export default function Categories( {mealCategories} ) {
         direction="row" 
         alignItems="center" 
         justifyContent='center' 
-        spacing={2} 
-        >
+        spacing={2} >
           {
             mealCategories.map((category) => 
               <Grid item key={category.idCategory}>
                 <Card 
                   variant='outlined' 
                   className = {styles.card}
-                  onClick= {(e) => {
-                    e.preventDefault();
-                    router.push(`/categories/${category.strCategory}`)
-                  }}
                 >
                   <Grid container direction='row' justifyContent='space-evenly' alignItems='center'>
                     <Grid item className={styles.imgContainer}>
@@ -78,20 +70,58 @@ export async function getStaticProps(){
     }
 }
 
+// import React from 'react'
+// import Link from 'next/link';
+// import styles from '../styles/Header.module.css'
+// import { useRouter } from 'next/router';
 
-// import Link from 'next/link'
-// import { useRouter } from 'next/router'
+// const Header = () => {
+//   const router = useRouter();
 
-// export default function Collection() {
-//   const router = useRouter()
-//   const {collection} = router.query;
+//   const handleHomeRoute = (e) => {
+//     e.preventDefault()
+//     router.push('/')
+//   }
 
 //   return (
-//     <div>
-//       <main>
-//         <h1>This is '/pages/collections/{collection}' </h1>
-//         <Link href='/'>Home</Link>
-//       </main>
+//     <div className={styles.container}>
+//       <div 
+//         className={styles.link}
+//         onClick = {handleHomeRoute}
+//       >
+//         Home
+//       </div>
 //     </div>
 //   )
+// }
+
+// export default Header;
+
+// .container {
+//   width: 100vw;
+//   position: fixed;
+//   top: 0;
+//   height: 8vh;
+//   background-color: #b24724;
+//   opacity: 80%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   z-index: 2;
+// }
+
+// .linkContainer {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   align-items: center;
+// }
+
+// .link {
+//   margin: 1rem;
+//   border-bottom: 1px solid black;
+//   color: black;
+//   cursor: pointer;
+//   opacity: 100%;
 // }
