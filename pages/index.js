@@ -17,7 +17,7 @@ export default function Home() {
         </Head>
         <Header />
         <main className={styles.main}>
-              This is the main pages
+              This is the home page
         </main>
     </>
   )
