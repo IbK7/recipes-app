@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+/pages/test.js
+/styles/Test.module.css
+
 # production
 /build
 
