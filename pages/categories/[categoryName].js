@@ -2,10 +2,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router'
 import React from 'react'
 import Header from '../../components/Header';
-import { CardContent, Grid, Card, Typography } from '@mui/material';
-import Image from 'next/image';
+import { Typography } from '@mui/material';
 import styles from '../../styles/Categories.module.css'
 import ErrorPage from 'next/error'
+import MealCard from '../../components/MealCard';
 
 const CategoryName = ({ meals }) => {
   const router = useRouter();
@@ -22,38 +22,7 @@ const CategoryName = ({ meals }) => {
         <Header />
         <main className={styles.main}>
           <Typography variant='h3'>Meals </Typography>
-
-            <Grid container direction="row" alignItems="center" justifyContent="center" spacing={1} sx = {{flex: "wrap"}}>
-              {
-                meals.map((meal) => 
-                  <Grid item key={meal.idMeal} 
-                  onClick = {() => router.push(`/meals/${meal.idMeal}`)}
-                  >
-                    <Card variant='outlined' className={styles.card}>
-                      <Grid container direction='column' justifyContent='center' alignItems='center' >
-                        <Grid item 
-                          className={styles.imgContainer}
-                        >
-                          <Image 
-                            src = {meal.strMealThumb} 
-                            alt={meal.strMeal} 
-                            layout="fill"
-                            objectFit="cover"
-                            quality={100}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <Typography variant='body1'>
-                            {meal.strMeal}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Card>
-                  </Grid>
-                )
-              }
-            </Grid>
-
+            <MealCard meals={meals} />
         </main>
     </>
   )

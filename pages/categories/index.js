@@ -31,14 +31,14 @@ export default function Categories( {mealCategories} ) {
         >
           {
             mealCategories.map((category) => 
-              <Grid item key={category.idCategory}>
+              <Grid item key={category.idCategory}
+              onClick= {(e) => {
+                e.preventDefault();
+                router.push(`/categories/${category.strCategory}`)
+              }}>
                 <Card 
                   variant='outlined' 
-                  className = {styles.card}
-                  onClick= {(e) => {
-                    e.preventDefault();
-                    router.push(`/categories/${category.strCategory}`)
-                  }}
+                  className = {styles.card}  
                 >
                   <Grid container direction='row' justifyContent='space-evenly' alignItems='center'>
                     <Grid item className={styles.imgContainer}>

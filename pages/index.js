@@ -1,13 +1,27 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import styles from '../styles/Home.module.css';
-import { CardContent, CircularProgress, Grid, Card, Typography } from '@mui/material';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
+import { IconButton, TextField } from '@mui/material';
+import { SearchOutlined } from '@mui/icons-material';
+import MealCard from '../components/MealCard';
 
 export default function Home() {
+  const [searchVal, setSearchVal] = useState("")
+  const [options, setOptions] = useState([])
+
+  const getSearchResults = async () => {
+    const data = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchVal}`)).json()
+    setOptions(data.meals)
+  }
+
+  const enterPressHandler = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      getSearchResults()
+    }
+  }
+
   return (
     <> 
       <Head>
@@ -17,8 +31,22 @@ export default function Home() {
         </Head>
         <Header />
         <main className={styles.main}>
-              This is the home page
+        <div className={styles.searchbarDiv}>
+          <TextField fullWidth
+            id = "searchText"
+            placeholder='Search...'
+            onChange={(event) => {setSearchVal(event.target.value)}}
+            onKeyDown={enterPressHandler}
+            InputProps= {{
+              endAdornment:<IconButton onClick={getSearchResults} ><SearchOutlined /></IconButton>
+            }}
+          />
+          </div>
+          <div className={styles.searchResult}>
+            <MealCard meals={options} />
+          </div>
         </main>
     </>
   )
 }
+

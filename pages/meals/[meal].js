@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React from 'react'
 import Header from '../../components/Header';
 import styles from '../../styles/Home.module.css'
@@ -10,6 +9,7 @@ import ErrorPage from 'next/error'
 const Meal = ( {newMeal} ) => {
 
     if (newMeal == null) return <ErrorPage statusCode='404' />
+
     return (
         <>
             <Head>
@@ -66,17 +66,7 @@ const Meal = ( {newMeal} ) => {
 }
 
 export async function getStaticPaths() {
-    // const router = useRouter();
-    // const {meal} = router.query;
-
-    // const data = await (await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${meal}`)).json();
-    // const mealCategories = data.categories;
-  
-    // var categoryPaths = [];
-    // for (let i = 0; i < mealCategories.length; i++ ) {
-    //   categoryPaths.push({params: {categoryName: mealCategories[i].strCategory}})
-    // }
-  
+    
     return {
       paths: [
         {params: {
@@ -86,13 +76,15 @@ export async function getStaticPaths() {
             meal: '53050'
         }},
       ],
-      fallback: true,
+      fallback: 'blocking',
     }
-  }
+}
   
   export async function getStaticProps({params}) {
     const data = await (await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.meal}`)).json();
-    const newMeal = data.meals[0];
+
+    var newMeal = null;
+    if (data.meals != null) newMeal = data.meals[0]
 
     return {
       props: {
