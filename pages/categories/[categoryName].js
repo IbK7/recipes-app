@@ -22,7 +22,7 @@ const CategoryName = ({ meals }) => {
         <Header />
         <main className={styles.main}>
           <Typography variant='h3'>Meals </Typography>
-            <MealCard meals={meals} />
+          <MealCard meals={meals} />
         </main>
     </>
   )
