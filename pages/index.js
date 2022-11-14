@@ -43,7 +43,7 @@ export default function Home() {
           />
           </div>
           <div className={styles.searchResult}>
-            <MealCard meals={options} />
+            {options == null ? <div>No results found</div> : <MealCard meals={options} />}
           </div>
         </main>
     </>
