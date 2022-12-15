@@ -8,6 +8,10 @@ const MealCard = (props) => {
     const {meals} = props
     const router = useRouter();
 
+    React.useEffect(() => {
+      console.log(props)
+    }, [])
+
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center" spacing={1} sx = {{flex: "wrap"}}>
         {
@@ -17,9 +21,8 @@ const MealCard = (props) => {
             >
               <Card variant='outlined' className={styles.card}>
                 <Grid container direction='column' justifyContent='center' alignItems='center' >
-                  <Grid item 
-                    className={styles.imgContainer}
-                  >
+                  <Grid item>
+                    <div className={styles.imgContainer}>
                     <Image 
                       src = {meal.strMealThumb} 
                       alt={meal.strMeal} 
@@ -27,9 +30,10 @@ const MealCard = (props) => {
                       objectFit="cover"
                       quality={100}
                     />
+                    </div>
                   </Grid>
                   <Grid item>
-                    <Typography variant='body1'>
+                    <Typography variant='h5' width={300}>
                       {meal.strMeal}
                     </Typography>
                   </Grid>
